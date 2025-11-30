@@ -55,4 +55,15 @@ jobs:
              LLVM_IAS=1 \
              Image dtbo.img
 
-    - n
+    - name: Package Kernel
+      run: |
+        cp out/arch/arm64/boot/Image AnyKernel3/
+        cp out/arch/arm64/boot/dtbo.img AnyKernel3/
+        cd AnyKernel3
+        zip -r9 ../OnePlus9-Docker-Kernel.zip *
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: OnePlus9-Docker-Kernel
+        path: OnePlus9-Docker-Kernel.zip
